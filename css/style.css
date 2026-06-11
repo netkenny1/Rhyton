@@ -1374,24 +1374,62 @@ body.is-loaded .search { opacity: 1; transform: none; }
   .nav { display: none; }
   .burger { display: flex; }
 
+  .hero__content { padding: 128px 0 96px; }
+  .hero__sub { margin-top: 20px; }
+
+  .search { margin-top: 40px; }
+  .search__tabs { display: flex; width: 100%; border-radius: 14px 14px 0 0; }
+  .search__tab { flex: 1; padding: 12px 0; }
   .search__form { flex-direction: column; gap: 4px; }
   .search__divider { display: none; }
   .search__field { padding: 12px 14px; border-bottom: 1px solid var(--line); }
   .search__field:last-of-type { border-bottom: 0; }
   .search__btn { justify-content: center; padding: 16px; margin-top: 6px; }
 
-  .stats__grid { grid-template-columns: repeat(2, 1fr); }
+  /* 16px inputs prevent iOS Safari from zooming on focus */
+  .search__field select,
+  .field input,
+  .field select,
+  .field textarea { font-size: 16px; }
 
-  .service { grid-template-columns: 48px 1fr; }
+  .marquee { padding: 16px 0; }
+  .marquee__track { gap: 32px; }
+  .marquee__track span { font-size: 1.1rem; }
+
+  .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 28px 16px; }
+
+  .service { grid-template-columns: 40px 1fr; gap: 18px; padding: 28px 10px; }
+  .service:hover { padding-left: 10px; }
   .service__arrow { display: none; }
 }
 
 @media (max-width: 640px) {
-  .properties__grid { grid-template-columns: 1fr; }
+  .logo__text { font-size: 0.85rem; }
+  .logo__text em { font-size: 0.48rem; }
+
+  .properties__grid { grid-template-columns: 1fr; gap: 20px; }
+  .card__body { padding: 20px; }
+  .properties__more { margin-top: 40px; }
+
+  .section__head { margin-bottom: 40px; }
+  .filter { width: 100%; }
+  .filter__btn { flex: 1; padding: 11px 0; text-align: center; }
+
   .hero__scroll { display: none; }
-  .contact__row { grid-template-columns: 1fr; gap: 4px; }
-  .contact__form { grid-template-columns: 1fr; }
-  .footer__top { flex-direction: column; text-align: center; }
+
+  .about__chip { left: 14px; bottom: 14px; padding: 12px 18px; }
+
+  .slider__controls { gap: 18px; }
+
+  .btn { padding: 15px 26px; width: 100%; justify-content: center; }
+  .about__copy .btn, .cta__inner .btn { width: auto; }
+
+  .contact__row { grid-template-columns: 1fr; gap: 4px; padding: 18px 0; }
+  .contact__form { grid-template-columns: 1fr; gap: 16px; }
+
+  .footer__top { flex-direction: column; text-align: center; padding: 40px 0; }
+  .footer__nav { justify-content: center; gap: 18px; }
+  .footer__bottom { justify-content: center; text-align: center; }
 }
 
 /* ============ Reduced motion ============ */
