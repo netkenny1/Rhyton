@@ -14,13 +14,18 @@ Built as a zero-dependency static site — no frameworks, no build step. Open `i
 - **Testimonials slider**, services list, about section and a floating-label contact form
 - Fully responsive, mobile menu, `prefers-reduced-motion` respected
 
+- **Scroll-driven 3D concept tower** — a procedural twisting glass-and-gold tower (Three.js, vendored locally) that assembles floor by floor and rotates as you scroll through a pinned, Apple-style section
+
 ## Structure
 
 ```
 index.html        — single-page site (all sections)
 css/style.css     — full theme, animations, responsive rules
 js/main.js        — preloader, cursor, reveals, counters, filter, slider, forms
+js/showcase.js    — scroll-driven 3D tower (pinned section)
+assets/vendor/    — three.module.min.js + three.core.min.js (r184)
 assets/favicon.svg
+.github/workflows/deploy-pages.yml — auto-deploys to GitHub Pages on push
 ```
 
 ## Customising for launch

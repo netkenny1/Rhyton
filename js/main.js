@@ -79,6 +79,34 @@
     { passive: true }
   );
 
+  /* ---------- Hero scroll-out (parallax + fade) ---------- */
+  const heroContent = document.querySelector(".hero__content");
+  const heroBg = document.querySelector(".hero__bg");
+
+  if (heroContent && heroBg && !prefersReducedMotion) {
+    let heroTicking = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (heroTicking) return;
+        heroTicking = true;
+        requestAnimationFrame(() => {
+          const y = window.scrollY;
+          const vh = window.innerHeight;
+          if (y <= vh) {
+            heroContent.style.transform = `translate3d(0, ${y * 0.18}px, 0)`;
+            heroContent.style.opacity = String(
+              Math.max(1 - y / (vh * 0.72), 0)
+            );
+            heroBg.style.transform = `translate3d(0, ${y * 0.24}px, 0)`;
+          }
+          heroTicking = false;
+        });
+      },
+      { passive: true }
+    );
+  }
+
   /* ---------- Mobile menu ---------- */
   const burger = document.getElementById("burger");
   const mobileMenu = document.getElementById("mobileMenu");

@@ -180,6 +180,30 @@
       </div>
     </section>
 
+    <!-- ===== 3D concept tower (scroll-driven) ===== -->
+    <section class="tower" id="concept" aria-label="The Rhyton Concept — interactive 3D tower">
+      <div class="tower__sticky">
+        <canvas id="towerCanvas" aria-hidden="true"></canvas>
+        <p class="tower__eyebrow">The Rhyton Concept · Marina Skyline Residence</p>
+        <div class="tower__caps" id="towerCaps">
+          <div class="tower__cap">
+            <h3>Sculpted for<br/>the skyline</h3>
+            <p>A twisting silhouette in the spirit of Dubai Marina's most daring towers — every floor turned a degree closer to the sea.</p>
+          </div>
+          <div class="tower__cap">
+            <h3>Glass, light<br/>&amp; gold</h3>
+            <p>Floor-to-ceiling glazing wrapped in a champagne-bronze lattice. Sunrise over the Gulf, sunset over the Palm.</p>
+          </div>
+          <div class="tower__cap">
+            <h3>Launching<br/>with Rhyton</h3>
+            <p>Off-plan residences from AED 2.4M. Private previews are now open.</p>
+            <a href="#contact" class="btn" data-cursor="link">Register interest <span class="arrow">→</span></a>
+          </div>
+        </div>
+        <div class="tower__progress"><i id="towerProgress"></i></div>
+      </div>
+    </section>
+
     <!-- ===== Featured properties ===== -->
     <section class="section properties" id="properties">
       <div class="container">
@@ -552,5 +576,6 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script type="module" src="js/showcase.js"></script>
 </body>
 </html>
