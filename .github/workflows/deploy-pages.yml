@@ -7,19 +7,36 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  # Path A — serves the site when Pages source is "Deploy from a branch"
+  publish-branch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # Publishes the site to the gh-pages branch; GitHub Pages
-      # auto-enables and serves it at netkenny1.github.io/Rhyton/
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
+
+  # Path B — serves the site when Pages source is "GitHub Actions"
+  deploy-pages:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
