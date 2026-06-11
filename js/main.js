@@ -280,23 +280,33 @@
     "data:image/svg+xml;utf8," +
     encodeURIComponent(
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">' +
-        '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
-        '<stop offset="0" stop-color="#16161d"/><stop offset="1" stop-color="#0b0b0f"/>' +
+        '<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0" stop-color="#f6f1e7"/><stop offset="1" stop-color="#e9e1d2"/>' +
         "</linearGradient></defs>" +
-        '<rect width="800" height="600" fill="url(#g)"/>' +
-        '<path d="M340 380V220h90c42 0 70 25 70 62s-28 62-70 62h-50" stroke="#c9a96a" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.5"/>' +
-        '<path d="M405 344l95 76" stroke="#c9a96a" stroke-width="10" stroke-linecap="round" opacity="0.5"/>' +
+        '<rect width="800" height="600" fill="url(#sky)"/>' +
+        // Dubai skyline silhouette: Burj Khalifa spike flanked by towers
+        '<g fill="#d8cdb8">' +
+        '<rect x="60" y="360" width="70" height="240"/>' +
+        '<rect x="150" y="300" width="55" height="300"/>' +
+        '<rect x="225" y="390" width="80" height="210"/>' +
+        '<polygon points="390,600 390,250 410,210 430,250 430,600"/>' +
+        '<polygon points="404,238 410,90 416,238"/>' +
+        '<rect x="470" y="330" width="60" height="270"/>' +
+        '<rect x="550" y="280" width="50" height="320"/>' +
+        '<rect x="620" y="370" width="85" height="230"/>' +
+        "</g>" +
+        '<path d="M355 470V370h55c26 0 43 15 43 38s-17 38-43 38h-31" stroke="#a8854b" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.85"/>' +
+        '<path d="M395 446l58 47" stroke="#a8854b" stroke-width="8" stroke-linecap="round" opacity="0.85"/>' +
         "</svg>"
     );
 
   document.querySelectorAll("img[src^='https://']").forEach((img) => {
-    img.addEventListener(
-      "error",
-      () => {
-        img.src = fallback;
-      },
-      { once: true }
-    );
+    const swap = () => {
+      img.src = fallback;
+    };
+    // Catch images that already failed before this listener attached
+    if (img.complete && img.naturalWidth === 0) swap();
+    else img.addEventListener("error", swap, { once: true });
   });
 
   /* ---------- Contact form ---------- */
