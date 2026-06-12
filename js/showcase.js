@@ -73,29 +73,42 @@ const rim = new THREE.DirectionalLight(0xbfd0e2, 0.45);
 rim.position.set(-8, 6, -7);
 scene.add(rim);
 
-/* ---------- Facade texture: real photography first ---------- */
-/* The same photographed curtain-wall already used on the site is
-   wrapped around the model. If it can't load, a drawn facade in
-   the same register takes over, so the tower never renders bare. */
-function drawnFacadeTexture() {
+/* ---------- Facade texture ---------- */
+/* Drawn curtain wall with a vertical sky-reflection ramp — panes
+   brighten toward the crown the way real glass towers catch the
+   sky. Deterministic and seamlessly tileable, which photographs
+   of real facades (shot in perspective) are not. */
+function facadeTexture() {
   const c = document.createElement("canvas");
   c.width = 512;
-  c.height = 512;
+  c.height = 2048; // full tower height in one tile, so the ramp never bands
   const ctx = c.getContext("2d");
   ctx.fillStyle = "#262b31";
-  ctx.fillRect(0, 0, 512, 512);
+  ctx.fillRect(0, 0, c.width, c.height);
   const cols = 10,
-    rows = 12;
+    rows = 56;
+  const colW = c.width / cols;
+  const rowH = c.height / rows;
+  const mix = (a, b, f) =>
+    `rgb(${Math.round(a[0] + (b[0] - a[0]) * f)},${Math.round(
+      a[1] + (b[1] - a[1]) * f
+    )},${Math.round(a[2] + (b[2] - a[2]) * f)})`;
+  const skyTop = [206, 222, 234];
+  const skyBot = [82, 95, 107];
   for (let j = 0; j < rows; j++) {
+    // canvas y=0 is texture v=1 (the crown): brighter sky reflection up top
+    const ramp = j / (rows - 1);
     for (let i = 0; i < cols; i++) {
-      const g = ctx.createLinearGradient(0, j * 42, 0, j * 42 + 38);
+      const jitter = (Math.random() - 0.5) * 0.12;
+      const f0 = Math.min(Math.max(0.12 + 0.62 * ramp + jitter, 0), 1);
+      const f1 = Math.min(Math.max(f0 + 0.22, 0), 1);
+      const y = j * rowH;
+      const g = ctx.createLinearGradient(0, y, 0, y + rowH - 4);
       const lit = Math.random() < 0.006;
-      g.addColorStop(0, lit ? "#ddd0b0" : "#aebfcd");
-      g.addColorStop(1, lit ? "#a59470" : "#525f6b");
+      g.addColorStop(0, lit ? "#ddd0b0" : mix(skyTop, skyBot, f0));
+      g.addColorStop(1, lit ? "#a59470" : mix(skyTop, skyBot, f1));
       ctx.fillStyle = g;
-      ctx.fillRect(i * 51 + 2, j * 42 + 2, 47, 37);
-      ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.08})`;
-      ctx.fillRect(i * 51 + 2, j * 42 + 2, 47, 37);
+      ctx.fillRect(i * colW + 2, y + 2, colW - 4, rowH - 5);
     }
   }
   const tex = new THREE.CanvasTexture(c);
@@ -106,38 +119,13 @@ function drawnFacadeTexture() {
 }
 
 const facadeMat = new THREE.MeshPhysicalMaterial({
-  map: drawnFacadeTexture(),
+  map: facadeTexture(),
   roughness: 0.22,
   metalness: 0.45,
   envMapIntensity: 1.1,
   clearcoat: 0.5,
   clearcoatRoughness: 0.3,
 });
-
-new THREE.TextureLoader().load(
-  "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
-  (tex) => {
-    // Tile a clean center crop of the photo, not the raw frame —
-    // avoids sky, vignette and perspective smearing at the edges.
-    const img = tex.image;
-    const c = document.createElement("canvas");
-    c.width = c.height = 512;
-    const ctx = c.getContext("2d");
-    const sw = img.width * 0.46;
-    const sh = img.height * 0.42;
-    const sx = img.width * 0.27;
-    const sy = img.height * 0.38;
-    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, 512, 512);
-    const crop = new THREE.CanvasTexture(c);
-    crop.colorSpace = THREE.SRGBColorSpace;
-    crop.wrapS = crop.wrapT = THREE.RepeatWrapping;
-    crop.anisotropy = 8;
-    facadeMat.map = crop;
-    facadeMat.needsUpdate = true;
-    tex.dispose();
-  }
-  // onError: keep the drawn fallback
-);
 
 /* ---------- Tower: one merged twisted loft ---------- */
 const tower = new THREE.Group();
@@ -147,8 +135,8 @@ const H = 12; // tower height
 const SEGS = 90; // vertical rings
 const TWIST = Math.PI / 2; // 90° Cayan-style twist
 const TAPER = 0.24;
-const REPEAT_U = 3; // facade photo wraps around
-const REPEAT_V = 5; // and stacks vertically
+const REPEAT_U = 3; // facade wraps around
+const REPEAT_V = 1; // one full-height tile — the texture draws every floor
 
 // chamfered-rectangle plan, like a real tower core
 function planPoints() {
