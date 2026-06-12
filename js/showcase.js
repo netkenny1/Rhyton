@@ -14,6 +14,7 @@ if (!section || !canvas) throw new Error("showcase: missing section/canvas");
 
 const caps = Array.from(section.querySelectorAll(".showcase__cap"));
 const progressBar = document.getElementById("showcaseProgress");
+const bgImg = section.querySelector(".showcase__bg img");
 
 const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
@@ -323,6 +324,11 @@ function update(dt) {
   crown.visible = crownIn > 0.01;
 
   tower.rotation.y = p * Math.PI * 2.2 + idle;
+
+  // skyline backdrop settles gently behind the model
+  if (bgImg) {
+    bgImg.style.transform = `scale(${(1.08 - p * 0.05).toFixed(4)}) translateY(${(p * -1.5).toFixed(2)}%)`;
+  }
 
   const ep = easeInOut(p);
   const fit = clamp(0.78 / camera.aspect, 1, 1.8);

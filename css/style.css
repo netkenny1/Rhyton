@@ -562,6 +562,32 @@ body.is-loaded .search { opacity: 1; transform: none; }
   overflow: hidden;
 }
 
+.showcase__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.showcase__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 62%;
+  filter: saturate(0.5) brightness(1.06);
+  will-change: transform;
+  transform: scale(1.08);
+}
+
+/* white wash keeps the real backdrop clean and the model dominant */
+.showcase__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(250, 250, 250, 0.94) 0%, rgba(250, 250, 250, 0.62) 45%, rgba(250, 250, 250, 0.42) 100%),
+    linear-gradient(to top, rgba(250, 250, 250, 0.96) 0%, rgba(250, 250, 250, 0.18) 38%, rgba(250, 250, 250, 0.66) 100%);
+}
+
 #showcaseCanvas {
   position: absolute;
   inset: 0;
