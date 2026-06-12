@@ -25,6 +25,8 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 80);
@@ -66,6 +68,15 @@ scene.add(new THREE.AmbientLight(0xfff6e8, 0.25));
 
 const key = new THREE.DirectionalLight(0xfff2dc, 1.35);
 key.position.set(6, 12, 8);
+key.castShadow = true;
+key.shadow.mapSize.set(1024, 1024);
+key.shadow.camera.left = -9;
+key.shadow.camera.right = 9;
+key.shadow.camera.top = 16;
+key.shadow.camera.bottom = -2;
+key.shadow.camera.near = 1;
+key.shadow.camera.far = 40;
+key.shadow.bias = -0.002;
 scene.add(key);
 
 const rim = new THREE.DirectionalLight(0xd8b97a, 0.5);
@@ -78,17 +89,63 @@ scene.add(tower);
 
 const FLOORS = 44;
 const FLOOR_H = 0.24;
-const GAP = 0.05;
+const GAP = 0.02;
 const TWIST = Math.PI / 2; // 90° total, Cayan-style
 const TOWER_H = FLOORS * (FLOOR_H + GAP);
 
-const glassMat = new THREE.MeshPhysicalMaterial({
-  color: 0x8fa9ba,
-  metalness: 0.3,
-  roughness: 0.16,
-  envMapIntensity: 1.0,
-  clearcoat: 0.5,
-  clearcoatRoughness: 0.25,
+/* Curtain-wall facade: each floor box gets one strip of glazing —
+   individual panes, slight tint variation, the odd lit window —
+   drawn to a canvas so no texture files are needed. */
+function makeFacadeTexture(panes) {
+  const c = document.createElement("canvas");
+  c.width = panes * 32;
+  c.height = 64;
+  const ctx = c.getContext("2d");
+  // mullion / spandrel frame
+  ctx.fillStyle = "#31373d";
+  ctx.fillRect(0, 0, c.width, 64);
+  for (let i = 0; i < panes; i++) {
+    const x = i * 32;
+    const g = ctx.createLinearGradient(0, 3, 0, 62);
+    if (Math.random() < 0.025) {
+      // an occupied, lit unit — rare, like dusk
+      g.addColorStop(0, "#e9d8ae");
+      g.addColorStop(1, "#b39c6e");
+    } else {
+      g.addColorStop(0, "#b4cbd8");
+      g.addColorStop(1, "#5d7280");
+    }
+    ctx.fillStyle = g;
+    ctx.fillRect(x + 1, 3, 30, 59);
+    // subtle per-pane reflection variation
+    ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.07})`;
+    ctx.fillRect(x + 1, 3, 30, 59);
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 8;
+  return tex;
+}
+
+function facadeMat(panes) {
+  return new THREE.MeshPhysicalMaterial({
+    map: makeFacadeTexture(panes),
+    roughness: 0.18,
+    metalness: 0.5,
+    envMapIntensity: 1.0,
+    clearcoat: 0.4,
+    clearcoatRoughness: 0.25,
+  });
+}
+
+// a few variants so lit windows don't repeat in lockstep
+const wideMats = [facadeMat(9), facadeMat(9), facadeMat(9)];
+const narrowMats = [facadeMat(6), facadeMat(6), facadeMat(6)];
+
+const topMat = new THREE.MeshStandardMaterial({
+  color: 0x3a4046,
+  roughness: 0.6,
+  metalness: 0.2,
 });
 
 const goldMat = new THREE.MeshStandardMaterial({
@@ -105,7 +162,7 @@ const stoneMat = new THREE.MeshStandardMaterial({
 });
 
 const floorGeo = new THREE.BoxGeometry(1, FLOOR_H, 1);
-const slabGeo = new THREE.BoxGeometry(1, 0.045, 1);
+const slabGeo = new THREE.BoxGeometry(1, 0.03, 1);
 
 const floors = [];
 for (let i = 0; i < FLOORS; i++) {
@@ -115,17 +172,26 @@ for (let i = 0; i < FLOORS; i++) {
   const y = 0.4 + i * (FLOOR_H + GAP) + FLOOR_H / 2;
   const rot = TWIST * t;
 
-  const f = new THREE.Mesh(floorGeo, glassMat);
+  // box faces: [+x, -x, +y, -y, +z, -z] — glazing on the sides only
+  const f = new THREE.Mesh(floorGeo, [
+    narrowMats[i % 3],
+    narrowMats[(i + 1) % 3],
+    topMat,
+    topMat,
+    wideMats[i % 3],
+    wideMats[(i + 2) % 3],
+  ]);
   f.scale.set(w, 1, d);
   f.position.y = y;
   f.rotation.y = rot;
+  f.castShadow = true;
   f.userData = { y, i };
   tower.add(f);
   floors.push(f);
 
-  // champagne-bronze slab between every floor
+  // slim champagne-bronze spandrel between floors
   const s = new THREE.Mesh(slabGeo, goldMat);
-  s.scale.set(w * 1.035, 1, d * 1.035);
+  s.scale.set(w * 1.02, 1, d * 1.02);
   s.position.y = y + FLOOR_H / 2 + GAP / 2;
   s.rotation.y = rot;
   s.userData = { y: s.position.y, i };
@@ -139,6 +205,7 @@ const crown = new THREE.Mesh(
   goldMat
 );
 crown.position.y = 0.4 + TOWER_H + 0.78;
+crown.castShadow = true;
 crown.userData = { y: crown.position.y, i: FLOORS };
 tower.add(crown);
 floors.push(crown);
@@ -146,7 +213,19 @@ floors.push(crown);
 // podium + ground
 const podium = new THREE.Mesh(new THREE.BoxGeometry(5, 0.4, 3.4), stoneMat);
 podium.position.y = 0.2;
+podium.castShadow = true;
+podium.receiveShadow = true;
 tower.add(podium);
+
+// real cast shadow on the ground
+const shadowPlane = new THREE.Mesh(
+  new THREE.PlaneGeometry(30, 30),
+  new THREE.ShadowMaterial({ opacity: 0.16 })
+);
+shadowPlane.rotation.x = -Math.PI / 2;
+shadowPlane.position.y = 0.005;
+shadowPlane.receiveShadow = true;
+scene.add(shadowPlane);
 
 function makeShadowDisc() {
   const c = document.createElement("canvas");

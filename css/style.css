@@ -826,6 +826,15 @@ body.is-loaded .search { opacity: 1; transform: none; }
   background: var(--bg);
 }
 
+.stats__eyebrow {
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 44px;
+}
+
 .stats__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
