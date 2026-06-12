@@ -547,11 +547,11 @@ body.is-loaded .search { opacity: 1; transform: none; }
   100% { transform: translateY(100%); }
 }
 
-/* ============ Scroll showcase (photographic) ============ */
+/* ============ Scroll showcase (3D tower) ============ */
 .showcase {
   position: relative;
   height: 300vh;
-  background: var(--dark);
+  background: linear-gradient(to bottom, var(--bg), var(--surface) 20%, var(--surface));
 }
 
 .showcase__sticky {
@@ -562,30 +562,13 @@ body.is-loaded .search { opacity: 1; transform: none; }
   overflow: hidden;
 }
 
-.showcase__media {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-}
-
-.showcase__img {
+#showcaseCanvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  will-change: transform, opacity;
-  transform: scale(1.16);
-}
-
-.showcase__img--b { opacity: 0; }
-
-.showcase__scrim {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to right, rgba(16, 19, 25, 0.72) 0%, rgba(16, 19, 25, 0.2) 55%, transparent 75%),
-    linear-gradient(to top, rgba(16, 19, 25, 0.55), transparent 40%);
+  display: block;
+  pointer-events: none;
 }
 
 .showcase__eyebrow {
@@ -595,7 +578,7 @@ body.is-loaded .search { opacity: 1; transform: none; }
   font-size: 0.72rem;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--muted);
 }
 
 .showcase__cap {
@@ -603,7 +586,6 @@ body.is-loaded .search { opacity: 1; transform: none; }
   left: 7vw;
   bottom: 16vh;
   max-width: 440px;
-  color: #fff;
   opacity: 0;
   pointer-events: none;
   will-change: opacity, transform;
@@ -618,7 +600,7 @@ body.is-loaded .search { opacity: 1; transform: none; }
 
 .showcase__cap p {
   margin-top: 14px;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--muted);
   font-size: 0.98rem;
   max-width: 360px;
 }
@@ -631,13 +613,13 @@ body.is-loaded .search { opacity: 1; transform: none; }
   right: 0;
   bottom: 0;
   height: 2px;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(22, 24, 29, 0.07);
 }
 
 .showcase__progress i {
   display: block;
   height: 100%;
-  background: #fff;
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
 }
@@ -645,7 +627,6 @@ body.is-loaded .search { opacity: 1; transform: none; }
 /* Static fallback for prefers-reduced-motion */
 .showcase--static { height: auto; }
 .showcase--static .showcase__sticky { position: relative; }
-.showcase--static .showcase__img { transform: none; }
 .showcase--static .showcase__cap:last-child { opacity: 1; pointer-events: auto; }
 .showcase--static .showcase__cap:not(:last-child) { display: none; }
 
