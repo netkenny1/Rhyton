@@ -33,35 +33,6 @@
     ]).then(finishLoading);
   }
 
-  /* ---------- Custom cursor ---------- */
-  const cursor = document.getElementById("cursor");
-  const cursorDot = document.getElementById("cursorDot");
-  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)")
-    .matches;
-
-  if (finePointer && !prefersReducedMotion) {
-    let mx = -100, my = -100, cx = -100, cy = -100;
-
-    window.addEventListener("mousemove", (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-      cursorDot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
-    });
-
-    (function lerpCursor() {
-      cx += (mx - cx) * 0.16;
-      cy += (my - cy) * 0.16;
-      cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
-      requestAnimationFrame(lerpCursor);
-    })();
-
-    document.querySelectorAll("[data-cursor]").forEach((el) => {
-      const mode = el.dataset.cursor === "view" ? "is-view" : "is-link";
-      el.addEventListener("mouseenter", () => cursor.classList.add(mode));
-      el.addEventListener("mouseleave", () => cursor.classList.remove(mode));
-    });
-  }
-
   /* ---------- Header on scroll ---------- */
   const header = document.getElementById("header");
   let lastY = window.scrollY;
@@ -309,11 +280,11 @@
     encodeURIComponent(
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">' +
         '<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">' +
-        '<stop offset="0" stop-color="#f6f1e7"/><stop offset="1" stop-color="#e9e1d2"/>' +
+        '<stop offset="0" stop-color="#f4f5f6"/><stop offset="1" stop-color="#e4e6e9"/>' +
         "</linearGradient></defs>" +
         '<rect width="800" height="600" fill="url(#sky)"/>' +
         // Dubai skyline silhouette: Burj Khalifa spike flanked by towers
-        '<g fill="#d8cdb8">' +
+        '<g fill="#cfd3d9">' +
         '<rect x="60" y="360" width="70" height="240"/>' +
         '<rect x="150" y="300" width="55" height="300"/>' +
         '<rect x="225" y="390" width="80" height="210"/>' +
@@ -323,8 +294,8 @@
         '<rect x="550" y="280" width="50" height="320"/>' +
         '<rect x="620" y="370" width="85" height="230"/>' +
         "</g>" +
-        '<path d="M355 470V370h55c26 0 43 15 43 38s-17 38-43 38h-31" stroke="#a8854b" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.85"/>' +
-        '<path d="M395 446l58 47" stroke="#a8854b" stroke-width="8" stroke-linecap="round" opacity="0.85"/>' +
+        '<path d="M355 470V370h55c26 0 43 15 43 38s-17 38-43 38h-31" stroke="#1c2e4a" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.85"/>' +
+        '<path d="M395 446l58 47" stroke="#1c2e4a" stroke-width="8" stroke-linecap="round" opacity="0.85"/>' +
         "</svg>"
     );
 

@@ -8,7 +8,7 @@
   <meta property="og:title" content="Rhyton Properties — Luxury Real Estate in Dubai" />
   <meta property="og:description" content="Buy. Rent. Invest. Premium residential and commercial real estate across Dubai." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#faf8f4" />
+  <meta name="theme-color" content="#fafafa" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,14 +31,10 @@
     </div>
   </div>
 
-  <!-- ===== Custom cursor ===== -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-dot" id="cursorDot"></div>
-
   <!-- ===== Header ===== -->
   <header class="header" id="header">
     <div class="header__inner">
-      <a href="#home" class="logo" data-cursor="link">
+      <a href="#home" class="logo">
         <svg class="logo__mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
           <path d="M16 52V12h18c8 0 14 5 14 12.5S42 37 34 37H24" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
           <path d="M30 37l18 15" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
@@ -47,11 +43,11 @@
       </a>
 
       <nav class="nav" id="nav">
-        <a href="#properties" class="nav__link" data-cursor="link">Properties</a>
-        <a href="#communities" class="nav__link" data-cursor="link">Communities</a>
-        <a href="#services" class="nav__link" data-cursor="link">Services</a>
-        <a href="#about" class="nav__link" data-cursor="link">About</a>
-        <a href="#contact" class="nav__link nav__link--cta" data-cursor="link">Enquire <span class="arrow">→</span></a>
+        <a href="#properties" class="nav__link">Properties</a>
+        <a href="#communities" class="nav__link">Communities</a>
+        <a href="#services" class="nav__link">Services</a>
+        <a href="#about" class="nav__link">About</a>
+        <a href="#contact" class="nav__link nav__link--cta">Enquire <span class="arrow">→</span></a>
       </nav>
 
       <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
@@ -136,7 +132,7 @@
                 <option>AED 15M+</option>
               </select>
             </div>
-            <button type="submit" class="search__btn" data-cursor="link">
+            <button type="submit" class="search__btn">
               <span>Search</span>
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             </button>
@@ -153,8 +149,8 @@
     <!-- ===== Marquee ===== -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
-        <span>Downtown Dubai</span><i>✦</i><span>Palm Jumeirah</span><i>✦</i><span>Dubai Marina</span><i>✦</i><span>Business Bay</span><i>✦</i><span>Emirates Hills</span><i>✦</i><span>DIFC</span><i>✦</i>
-        <span>Downtown Dubai</span><i>✦</i><span>Palm Jumeirah</span><i>✦</i><span>Dubai Marina</span><i>✦</i><span>Business Bay</span><i>✦</i><span>Emirates Hills</span><i>✦</i><span>DIFC</span><i>✦</i>
+        <span>Downtown Dubai</span><i>·</i><span>Palm Jumeirah</span><i>·</i><span>Dubai Marina</span><i>·</i><span>Business Bay</span><i>·</i><span>Emirates Hills</span><i>·</i><span>DIFC</span><i>·</i>
+        <span>Downtown Dubai</span><i>·</i><span>Palm Jumeirah</span><i>·</i><span>Dubai Marina</span><i>·</i><span>Business Bay</span><i>·</i><span>Emirates Hills</span><i>·</i><span>DIFC</span><i>·</i>
       </div>
     </div>
 
@@ -183,27 +179,31 @@
       </div>
     </section>
 
-    <!-- ===== 3D concept tower (scroll-driven) ===== -->
-    <section class="tower" id="concept" aria-label="The Rhyton Concept — interactive 3D tower">
-      <div class="tower__sticky">
-        <canvas id="towerCanvas" aria-hidden="true"></canvas>
-        <p class="tower__eyebrow">The Rhyton Concept · Marina Skyline Residence</p>
-        <div class="tower__caps" id="towerCaps">
-          <div class="tower__cap">
-            <h3>Sculpted for<br/>the skyline</h3>
-            <p>A twisting silhouette in the spirit of Dubai Marina's most daring towers — every floor turned a degree closer to the sea.</p>
+    <!-- ===== Scroll showcase (real photography, scroll-driven) ===== -->
+    <section class="showcase" id="concept" aria-label="Off-plan with Rhyton">
+      <div class="showcase__sticky">
+        <figure class="showcase__media" aria-hidden="true">
+          <img class="showcase__img showcase__img--a" src="https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=2000&auto=format&fit=crop" alt="Burj Khalifa rising over Downtown Dubai" loading="lazy" />
+          <img class="showcase__img showcase__img--b" src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2000&auto=format&fit=crop" alt="Dubai Marina towers at dusk" loading="lazy" />
+          <div class="showcase__scrim"></div>
+        </figure>
+        <p class="showcase__eyebrow">Off-plan · Downtown &amp; Marina</p>
+        <div class="showcase__caps" id="showcaseCaps">
+          <div class="showcase__cap">
+            <h3>The skyline is<br/>the brochure.</h3>
+            <p>No market builds like Dubai — and no one should buy here without knowing exactly what's coming next.</p>
           </div>
-          <div class="tower__cap">
-            <h3>Glass, light<br/>&amp; gold</h3>
-            <p>Floor-to-ceiling glazing wrapped in a champagne-bronze lattice. Sunrise over the Gulf, sunset over the Palm.</p>
+          <div class="showcase__cap">
+            <h3>Off-plan,<br/>de-risked.</h3>
+            <p>Escrow-protected payments, RERA oversight, and developer track records we vet before you commit a dirham.</p>
           </div>
-          <div class="tower__cap">
-            <h3>Launching<br/>with Rhyton</h3>
-            <p>Off-plan residences from AED 2.4M. Private previews are now open.</p>
-            <a href="#contact" class="btn" data-cursor="link">Register interest <span class="arrow">→</span></a>
+          <div class="showcase__cap">
+            <h3>First access,<br/>through Rhyton.</h3>
+            <p>Launch allocations in Downtown and the Marina from AED 2.4M. Private previews now open.</p>
+            <a href="#contact" class="btn btn--light">Register interest <span class="arrow">→</span></a>
           </div>
         </div>
-        <div class="tower__progress"><i id="towerProgress"></i></div>
+        <div class="showcase__progress"><i id="showcaseProgress"></i></div>
       </div>
     </section>
 
@@ -224,7 +224,7 @@
         <div class="properties__grid" id="propertiesGrid">
 
           <article class="card" data-category="buy" data-reveal>
-            <div class="card__media" data-cursor="view">
+            <div class="card__media">
               <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1600&auto=format&fit=crop" alt="Signature villa with infinity pool on Palm Jumeirah" loading="lazy" />
               <span class="card__badge">For Sale</span>
             </div>
@@ -241,7 +241,7 @@
           </article>
 
           <article class="card" data-category="buy" data-reveal>
-            <div class="card__media" data-cursor="view">
+            <div class="card__media">
               <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1600&auto=format&fit=crop" alt="Penthouse living room overlooking Downtown Dubai" loading="lazy" />
               <span class="card__badge">For Sale</span>
             </div>
@@ -258,7 +258,7 @@
           </article>
 
           <article class="card" data-category="rent" data-reveal>
-            <div class="card__media" data-cursor="view">
+            <div class="card__media">
               <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1600&auto=format&fit=crop" alt="Modern marina apartment interior" loading="lazy" />
               <span class="card__badge card__badge--rent">For Rent</span>
             </div>
@@ -275,7 +275,7 @@
           </article>
 
           <article class="card" data-category="rent" data-reveal>
-            <div class="card__media" data-cursor="view">
+            <div class="card__media">
               <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop" alt="Contemporary villa with pool at dusk" loading="lazy" />
               <span class="card__badge card__badge--rent">For Rent</span>
             </div>
@@ -292,7 +292,7 @@
           </article>
 
           <article class="card" data-category="commercial" data-reveal>
-            <div class="card__media" data-cursor="view">
+            <div class="card__media">
               <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1600&auto=format&fit=crop" alt="Premium office floor with skyline views" loading="lazy" />
               <span class="card__badge card__badge--commercial">Commercial</span>
             </div>
@@ -309,7 +309,7 @@
           </article>
 
           <article class="card" data-category="commercial" data-reveal>
-            <div class="card__media" data-cursor="view">
+            <div class="card__media">
               <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop" alt="Modern commercial tower facade" loading="lazy" />
               <span class="card__badge card__badge--commercial">Commercial</span>
             </div>
@@ -328,7 +328,7 @@
         </div>
 
         <div class="properties__more" data-reveal>
-          <a href="#contact" class="btn btn--ghost" data-cursor="link">Request the full portfolio <span class="arrow">→</span></a>
+          <a href="#contact" class="btn btn--ghost">Request the full portfolio <span class="arrow">→</span></a>
         </div>
       </div>
     </section>
@@ -342,35 +342,35 @@
         </div>
       </div>
       <div class="communities__scroller" id="communitiesScroller">
-        <a class="community" href="#contact" data-cursor="view" data-reveal>
+        <a class="community" href="#contact" data-reveal>
           <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1400&auto=format&fit=crop" alt="Burj Khalifa, Downtown Dubai" loading="lazy" />
           <div class="community__info">
             <h3>Downtown Dubai</h3>
             <p>The center of everything</p>
           </div>
         </a>
-        <a class="community" href="#contact" data-cursor="view" data-reveal>
+        <a class="community" href="#contact" data-reveal>
           <img src="https://images.unsplash.com/photo-1528702748617-c64d49f918af?q=80&w=1400&auto=format&fit=crop" alt="Burj Al Arab and Jumeirah coastline" loading="lazy" />
           <div class="community__info">
             <h3>Palm Jumeirah</h3>
             <p>Beachfront icon living</p>
           </div>
         </a>
-        <a class="community" href="#contact" data-cursor="view" data-reveal>
+        <a class="community" href="#contact" data-reveal>
           <img src="https://images.unsplash.com/photo-1580674684081-7617fbf3d745?q=80&w=1400&auto=format&fit=crop" alt="Dubai Marina towers and waterfront" loading="lazy" />
           <div class="community__info">
             <h3>Dubai Marina</h3>
             <p>Waterfront energy</p>
           </div>
         </a>
-        <a class="community" href="#contact" data-cursor="view" data-reveal>
+        <a class="community" href="#contact" data-reveal>
           <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1400&auto=format&fit=crop" alt="Business Bay skyline at night" loading="lazy" />
           <div class="community__info">
             <h3>Business Bay</h3>
             <p>Commerce &amp; canal views</p>
           </div>
         </a>
-        <a class="community" href="#contact" data-cursor="view" data-reveal>
+        <a class="community" href="#contact" data-reveal>
           <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1400&auto=format&fit=crop" alt="Luxury villa in a gated community" loading="lazy" />
           <div class="community__info">
             <h3>Emirates Hills</h3>
@@ -445,7 +445,7 @@
             <li>Off-market access through private networks</li>
             <li>Multilingual team — English, العربية, Русский, 中文</li>
           </ul>
-          <a href="#contact" class="btn" data-reveal data-cursor="link">Meet your advisor <span class="arrow">→</span></a>
+          <a href="#contact" class="btn" data-reveal>Meet your advisor <span class="arrow">→</span></a>
         </div>
       </div>
     </section>
@@ -474,9 +474,9 @@
             </blockquote>
           </div>
           <div class="slider__controls">
-            <button class="slider__btn" id="prevSlide" aria-label="Previous testimonial" data-cursor="link">←</button>
+            <button class="slider__btn" id="prevSlide" aria-label="Previous testimonial">←</button>
             <div class="slider__dots" id="sliderDots"></div>
-            <button class="slider__btn" id="nextSlide" aria-label="Next testimonial" data-cursor="link">→</button>
+            <button class="slider__btn" id="nextSlide" aria-label="Next testimonial">→</button>
           </div>
         </div>
       </div>
@@ -489,7 +489,7 @@
       </div>
       <div class="container cta__inner" data-reveal>
         <h2>Considering a move?<br/><em>Talk to us first.</em></h2>
-        <a href="#contact" class="btn btn--light" data-cursor="link">Book a consultation <span class="arrow">→</span></a>
+        <a href="#contact" class="btn btn--light">Book a consultation <span class="arrow">→</span></a>
       </div>
     </section>
 
@@ -506,11 +506,11 @@
             </div>
             <div class="contact__row">
               <span>Phone / WhatsApp</span>
-              <p><a href="tel:+97140000000" data-cursor="link">+971 4 000 0000</a></p>
+              <p><a href="tel:+97140000000">+971 4 000 0000</a></p>
             </div>
             <div class="contact__row">
               <span>Email</span>
-              <p><a href="mailto:hello@rhytonproperties.ae" data-cursor="link">hello@rhytonproperties.ae</a></p>
+              <p><a href="mailto:hello@rhytonproperties.ae">hello@rhytonproperties.ae</a></p>
             </div>
             <div class="contact__row">
               <span>Hours</span>
@@ -547,7 +547,7 @@
             <textarea id="message" rows="4" placeholder=" "></textarea>
             <label for="message">Tell us more</label>
           </div>
-          <button type="submit" class="btn btn--full" data-cursor="link">Send enquiry <span class="arrow">→</span></button>
+          <button type="submit" class="btn btn--full">Send enquiry <span class="arrow">→</span></button>
           <p class="contact__success" id="formSuccess" hidden>Thank you — a Rhyton advisor will reach out within one business day.</p>
         </form>
       </div>
@@ -558,18 +558,18 @@
   <!-- ===== Footer ===== -->
   <footer class="footer">
     <div class="container footer__top">
-      <a href="#home" class="footer__brand" data-cursor="link">RHYTON</a>
+      <a href="#home" class="footer__brand">RHYTON</a>
       <nav class="footer__nav">
-        <a href="#properties" data-cursor="link">Properties</a>
-        <a href="#communities" data-cursor="link">Communities</a>
-        <a href="#services" data-cursor="link">Services</a>
-        <a href="#about" data-cursor="link">About</a>
-        <a href="#contact" data-cursor="link">Contact</a>
+        <a href="#properties">Properties</a>
+        <a href="#communities">Communities</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
       <div class="footer__social">
-        <a href="#" aria-label="Instagram" data-cursor="link">IG</a>
-        <a href="#" aria-label="LinkedIn" data-cursor="link">IN</a>
-        <a href="#" aria-label="X" data-cursor="link">X</a>
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="LinkedIn">IN</a>
+        <a href="#" aria-label="X">X</a>
       </div>
     </div>
     <div class="container footer__bottom">
@@ -579,6 +579,6 @@
   </footer>
 
   <script src="js/main.js"></script>
-  <script type="module" src="js/showcase.js"></script>
+  <script src="js/showcase.js"></script>
 </body>
 </html>

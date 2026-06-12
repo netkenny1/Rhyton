@@ -6,15 +6,15 @@ Built as a zero-dependency static site — no frameworks, no build step. Open `i
 
 ## Highlights
 
-- **Dark editorial luxury theme** — Playfair Display + Manrope, gold-on-charcoal palette inspired by Dubai's top agencies (DAMAC, Nakheel, Luxhabitat)
-- **Animations throughout** — branded preloader, ken-burns hero, staggered text reveals, scroll-triggered fade-ups, animated stat counters, infinite community marquee, parallax, custom cursor, magnetic hover states
+- **Neutral editorial theme** — Playfair Display + Manrope, charcoal-on-off-white with a deep ink-navy accent; minimal, professional, no gimmicks
+- **Animations throughout** — branded preloader, ken-burns hero with scroll-out parallax, staggered text reveals, scroll-triggered fade-ups, animated market counters, district marquee
 - **Hero property search** — Buy / Rent / Commercial tabs with location, type and budget; wired to the portfolio filter below
 - **Featured portfolio** — filterable property cards (For Sale / For Rent / Commercial) with AED pricing
 - **Communities scroller** — Downtown, Palm Jumeirah, Dubai Marina, Business Bay, Emirates Hills
 - **Testimonials slider**, services list, about section and a floating-label contact form
 - Fully responsive, mobile menu, `prefers-reduced-motion` respected
 
-- **Scroll-driven 3D concept tower** — a procedural twisting glass-and-gold tower (Three.js, vendored locally) that assembles floor by floor and rotates as you scroll through a pinned, Apple-style section
+- **Scroll-driven photographic showcase** — real Dubai photography pinned Apple-style: images settle, crossfade and step through three caption stages with scroll; pure transform/opacity so it runs at full frame rate on any device
 
 ## Structure
 
@@ -22,8 +22,7 @@ Built as a zero-dependency static site — no frameworks, no build step. Open `i
 index.html        — single-page site (all sections)
 css/style.css     — full theme, animations, responsive rules
 js/main.js        — preloader, cursor, reveals, counters, filter, slider, forms
-js/showcase.js    — scroll-driven 3D tower (pinned section)
-assets/vendor/    — three.module.min.js + three.core.min.js (r184)
+js/showcase.js    — scroll-driven photographic showcase (pinned section)
 assets/favicon.svg
 .github/workflows/deploy-pages.yml — auto-deploys to GitHub Pages on push
 ```
